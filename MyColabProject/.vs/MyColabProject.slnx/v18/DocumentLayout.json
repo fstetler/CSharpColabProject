@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\CSharpProject\\CSharpColabProject\\MyColabProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{35CF0709-29AA-4C57-A667-AB143D269D70}|MyColabProject\\MyColabProject.csproj|c:\\csharpproject\\csharpcolabproject\\mycolabproject\\mycolabproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35CF0709-29AA-4C57-A667-AB143D269D70}|MyColabProject\\MyColabProject.csproj|solutionrelative:mycolabproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BC6C328E-5E35-C9E0-4C1E-76B5C8CF9DD3}|MyColabProject\\MyColabProject.csproj|c:\\csharpproject\\csharpcolabproject\\mycolabproject\\mycolabproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BC6C328E-5E35-C9E0-4C1E-76B5C8CF9DD3}|MyColabProject\\MyColabProject.csproj|solutionrelative:mycolabproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -120,7 +120,7 @@
               "RelativeDocumentMoniker": "MyColabProject\\Program.cs",
               "ToolTip": "C:\\CSharpProject\\CSharpColabProject\\MyColabProject\\MyColabProject\\Program.cs",
               "RelativeToolTip": "MyColabProject\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-18T08:51:27.098Z",
               "EditorCaption": ""
