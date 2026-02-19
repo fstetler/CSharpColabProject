@@ -13,7 +13,8 @@ public class Program
             options =>
                 options.UseInMemoryDatabase("PeopleDb"));
 
-        builder.Services.AddMediatR(typeof(Program));
+        builder.Services.AddMediatR(cfg => 
+            cfg.RegisterServicesFromAssemblyContaining<Program>());
 
         builder.Services.AddControllers();
 
