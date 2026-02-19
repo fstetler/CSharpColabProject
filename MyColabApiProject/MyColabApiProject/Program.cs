@@ -1,23 +1,28 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using MyColabApiProject;
+using MediatR;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.MapOpenApi();
+    public static void Main(string[] args)
+    {
+
+        var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddDbContext<PersonDbContext>(
+            options =>
+                options.UseInMemoryDatabase("PeopleDb"));
+
+        builder.Services.AddMediatR(typeof(Program));
+
+        builder.Services.AddControllers();
+
+        var app = builder.Build();
+
+        app.MapControllers();
+
+        app.Run();
+
+
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
