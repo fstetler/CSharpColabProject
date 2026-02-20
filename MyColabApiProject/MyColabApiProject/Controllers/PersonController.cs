@@ -24,7 +24,6 @@ namespace MyColabApiProject.Controllers
             return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
         }
 
-
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> Get(Guid id)
         {
@@ -35,7 +34,5 @@ namespace MyColabApiProject.Controllers
             }
             return person;
         }
-
-
     }
 }
