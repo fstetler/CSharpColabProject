@@ -2,7 +2,7 @@
 
 namespace MyColabApiProject.Commands
 {
-    public class CreatePersonHandler : IRequestHandler<CreatePersonCommand, Person>
+    public class CreatePersonHandler : IRequestHandler<CreatePersonCommand, Person>, ICreatePersonHandler
     {
         private readonly PersonDbContext _db;
 
