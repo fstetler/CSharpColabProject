@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject;
-using MediatR;
-using System.IO;
 
 public class Program
 {
@@ -10,13 +8,13 @@ public class Program
 
         var builder = WebApplication.CreateBuilder(args);
 
-        var keyFilePath = Path.Combine(builder.Environment.ContentRootPath, "Resources", "MediatRKey.txt");
-        if (!File.Exists(keyFilePath))
-        {
-            throw new FileNotFoundException($"MediatR license key file not found: {keyFilePath}");
-        }
+        //var keyFilePath = Path.Combine(builder.Environment.ContentRootPath, "Resources", "MediatRKey.txt");
+        //if (!File.Exists(keyFilePath))
+        //{
+        //    throw new FileNotFoundException($"MediatR license key file not found: {keyFilePath}");
+        //}
 
-        var licenseKey = File.ReadAllText(keyFilePath).Trim();
+        //var licenseKey = File.ReadAllText(keyFilePath).Trim();
 
         builder.Services.AddDbContext<PersonDbContext>(
             options =>
@@ -25,12 +23,23 @@ public class Program
         builder.Services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining<Program>();
-            cfg.LicenseKey = licenseKey;
+            //cfg.LicenseKey = licenseKey;
         });
 
         builder.Services.AddControllers();
 
         var app = builder.Build();
+
+        //using (var scope = app.Services.CreateScope())
+        //{
+        //    var dbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
+
+        //    if (!dbContext.Persons.Any())
+        //    {
+        //        dbContext.Persons.Add(new Person { Id = Guid.NewGuid(), Name = "John Doe" });
+        //        dbContext.SaveChanges();
+        //    }
+        //}
 
         app.MapControllers();
 

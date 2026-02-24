@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using MyColabApiProject.Commands;
 using MyColabApiProject.Queries;
 
 namespace MyColabApiProject.Controllers
@@ -17,22 +16,14 @@ namespace MyColabApiProject.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Person>> Create([FromBody] string name)
+        [HttpGet]
+        public async Task<ActionResult<List<Person>>> Get()
         {
-            var created = await _mediator.Send(new CreatePersonCommand(name));
-            return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
-        }
+            
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> Get(Guid id)
-        {
-            var person = await _mediator.Send(new GetPersonByIdQuery(id));
-            if (person is null)
-            {
-                return NotFound();
-            }
-            return person;
+            var persons = await _mediator.Send(new GetAllPersonsQuery());
+            
+            return persons;
         }
     }
 }
