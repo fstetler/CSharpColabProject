@@ -12,7 +12,7 @@ namespace MyColabApiProject.Repository
             _db = personDbContext;
         }
 
-        public async Task<List<Person>> GetAllPersons() 
+        public async Task<List<Person>> GetAllPersonsAsync() 
         { 
             return await _db.Persons.ToListAsync();    
         }

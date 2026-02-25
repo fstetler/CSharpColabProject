@@ -2,6 +2,6 @@
 {
     public interface IPersonRepository
     {
-        public Task<List<Person>> GetAllPersons();
+        public Task<List<Person>> GetAllPersonsAsync();
     }
 }
