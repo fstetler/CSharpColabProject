@@ -8,14 +8,6 @@ public class Program
 
         var builder = WebApplication.CreateBuilder(args);
 
-        //var keyFilePath = Path.Combine(builder.Environment.ContentRootPath, "Resources", "MediatRKey.txt");
-        //if (!File.Exists(keyFilePath))
-        //{
-        //    throw new FileNotFoundException($"MediatR license key file not found: {keyFilePath}");
-        //}
-
-        //var licenseKey = File.ReadAllText(keyFilePath).Trim();
-
         builder.Services.AddDbContext<PersonDbContext>(
             options =>
                 options.UseInMemoryDatabase("PeopleDb"));
@@ -23,7 +15,6 @@ public class Program
         builder.Services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining<Program>();
-            //cfg.LicenseKey = licenseKey;
         });
 
         builder.Services.AddControllers();
