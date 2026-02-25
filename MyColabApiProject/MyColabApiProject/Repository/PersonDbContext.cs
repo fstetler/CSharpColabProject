@@ -8,7 +8,8 @@ namespace MyColabApiProject
         public PersonDbContext(DbContextOptions<PersonDbContext> options) : base(options)
         {
         }
-        public List<Person> Persons { get; }
+
+        public DbSet<Person> Persons { get; set; }
 
     }
 }

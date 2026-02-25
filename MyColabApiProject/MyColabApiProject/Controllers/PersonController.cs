@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyColabApiProject.Queries;
 
 namespace MyColabApiProject.Controllers
@@ -19,10 +20,7 @@ namespace MyColabApiProject.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Person>>> Get()
         {
-            
-
-            var persons = await _mediator.Send(new GetAllPersonsQuery());
-            
+            var persons = await _mediator.Send(new GetAllPersonsQuery());   
             return persons;
         }
     }
