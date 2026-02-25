@@ -28,6 +28,7 @@ public class Program
             if (!dbContext.Persons.Any())
             {
                 dbContext.Persons.Add(new Person { Id = Guid.NewGuid(), Name = "John Doe" });
+                dbContext.Persons.Add(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
                 dbContext.SaveChanges();
             }
         }
