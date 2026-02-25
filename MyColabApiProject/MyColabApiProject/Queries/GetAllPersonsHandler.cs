@@ -1,33 +1,21 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using MyColabApiProject;
 
 namespace MyColabApiProject.Queries
 {
     public class GetAllPersonsHandler : IRequestHandler<GetAllPersonsQuery, List<Person>>
     {
 
-        private readonly PersonDbContext _db;
+        private readonly PersonDbContext _personDbContext;
 
-        public GetAllPersonsHandler(PersonDbContext db)
+        public GetAllPersonsHandler(PersonDbContext personDbContext)
         {
-
-            this._db = db;
+            _personDbContext = personDbContext;
         }
 
         public async Task<List<Person>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
         {
-            return await _db.Persons.ToListAsync(cancellationToken);
+            return await _personDbContext.Persons.ToListAsync(cancellationToken);
         }
-
-        //public async Task<DbSet<Person>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
-        //{
-        //    return await _db.Persons.ToListAsync(cancellationToken);
-        //}
-
-        //Task<List<Person>> IRequestHandler<GetAllPersonsQuery, List<Person>>.Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
