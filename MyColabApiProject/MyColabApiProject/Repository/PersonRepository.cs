@@ -12,6 +12,9 @@ namespace MyColabApiProject.Repository
             _db = personDbContext;
         }
 
-        public DbSet<Person> Persons { get; set; }
+        public List<Person> GetAllPersons() 
+        { 
+            return _db.Persons.ToList();    
+        }
     }
 }

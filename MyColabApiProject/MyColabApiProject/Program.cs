@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject;
+using MyColabApiProject.Repository;
 
 public class Program
 {
@@ -18,6 +19,7 @@ public class Program
         });
 
         builder.Services.AddControllers();
+        builder.Services.AddTransient<PersonRepository>();
 
         var app = builder.Build();
 
