@@ -1,4 +1,6 @@
-﻿namespace MyColabApiProject.Repository
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace MyColabApiProject.Repository
 {
     public class PersonRepository : IPersonRepository
     {
@@ -10,9 +12,9 @@
             _db = personDbContext;
         }
 
-        public List<Person> GetAllPersons() 
+        public async Task<List<Person>> GetAllPersons() 
         { 
-            return _db.Persons.ToList();    
+            return await _db.Persons.ToListAsync();    
         }
     }
 }

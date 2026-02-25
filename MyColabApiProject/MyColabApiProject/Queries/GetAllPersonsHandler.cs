@@ -8,14 +8,14 @@ namespace MyColabApiProject.Queries
 
         private readonly PersonRepository _personRepository;
 
-        public GetAllPersonsHandler(PersonRepository personDbContext)
+        public GetAllPersonsHandler(PersonRepository personRepository)
         {
-            _personRepository = personDbContext;
+            _personRepository = personRepository;
         }
 
         public Task<List<Person>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_personRepository.GetAllPersons());
+            return Task.FromResult(_personRepository.GetAllPersons().Result);
         }
     }
 }
