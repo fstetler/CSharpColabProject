@@ -6,9 +6,9 @@ namespace MyColabApiProject.Queries
     public class GetAllPersonsHandler : IRequestHandler<GetAllPersonsQuery, List<Person>>
     {
 
-        private readonly PersonRepository _personRepository;
+        private readonly IPersonRepository _personRepository;
 
-        public GetAllPersonsHandler(PersonRepository personRepository)
+        public GetAllPersonsHandler(IPersonRepository personRepository)
         {
             _personRepository = personRepository;
         }

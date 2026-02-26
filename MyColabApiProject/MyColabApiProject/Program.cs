@@ -19,7 +19,7 @@ public class Program
         });
 
         builder.Services.AddControllers();
-        builder.Services.AddTransient<PersonRepository>();
+        builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 
         var app = builder.Build();
 
