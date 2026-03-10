@@ -1,13 +1,14 @@
-﻿using Common.RepositoryCommon;
+﻿using MyColabApiProject;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyColabApiProject.Repository
+namespace Common.RepositoryCommon
 {
-    public class PersonRepository : RepositoryBase
+    public class RepositoryBase : IPersonRepository
     {
+
         private readonly PersonDbContext _db;
 
-        public PersonRepository(PersonDbContext personDbContext) : base(personDbContext)
+        public RepositoryBase(PersonDbContext personDbContext)
         {
             _db = personDbContext;
         }

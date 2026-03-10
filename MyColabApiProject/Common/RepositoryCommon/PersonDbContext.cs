@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyColabApiProject;
 
-namespace MyColabApiProject
+namespace Common.RepositoryCommon
 {
     public class PersonDbContext : DbContext
     {

@@ -1,4 +1,6 @@
-﻿namespace MyColabApiProject.Repository
+﻿using MyColabApiProject;
+
+namespace Common.RepositoryCommon
 {
     public interface IPersonRepository
     {
