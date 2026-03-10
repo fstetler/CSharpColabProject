@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="Common1/Common.csproj" Id="027e1d0f-e46f-4fbf-8b92-7aaeabb27b67" />
+  <Project Path="Common/Common.csproj" />
   <Project Path="MyColabApiProject/MyColabApiProject.csproj" />
 </Solution>
