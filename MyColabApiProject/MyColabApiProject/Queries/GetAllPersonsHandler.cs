@@ -1,14 +1,14 @@
-﻿using Common;
-using MediatR;
+﻿using MediatR;
+using MyColabApiProject.Repository;
 
 namespace MyColabApiProject.Queries
 {
     public class GetAllPersonsHandler : IRequestHandler<GetAllPersonsQuery, List<Person>>
     {
 
-        private readonly IRepository<Person> _personRepository;
+        private readonly IPersonRepository _personRepository;
 
-        public GetAllPersonsHandler(IRepository<Person> personRepository)
+        public GetAllPersonsHandler(IPersonRepository personRepository)
         {
             _personRepository = personRepository;
         }

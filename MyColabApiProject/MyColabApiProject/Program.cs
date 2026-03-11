@@ -10,7 +10,7 @@ public class Program
 
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddDbContext<CommonDbContext<Person>>(
+        builder.Services.AddDbContext<PersonDbContext>(
             options =>
                 options.UseInMemoryDatabase("PeopleDb"));
 
@@ -20,20 +20,18 @@ public class Program
         });
 
         builder.Services.AddControllers();
-        builder.Services.AddTransient<IRepository<Person>, PersonRepository>();
+        builder.Services.AddTransient<IPersonRepository, PersonRepository>();
+
 
         var app = builder.Build();
 
         using (var scope = app.Services.CreateScope())
         {
-            var dbContext = scope.ServiceProvider.GetRequiredService<CommonDbContext<Person>>();
+            var personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
 
-            if (!dbContext.GetAll.Any())
-            {
-                dbContext.GetAll.Add(new Person { Id = Guid.NewGuid(), Name = "John Doe" });
-                dbContext.GetAll.Add(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
-                dbContext.SaveChanges();
-            }
+            personDbContext.Set<Person>().Add(new Person { Id = Guid.NewGuid(), Name = "Jane Doe" });
+            personDbContext.Set<Person>().Add(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
+            personDbContext.SaveChanges();
         }
 
         app.MapControllers();
