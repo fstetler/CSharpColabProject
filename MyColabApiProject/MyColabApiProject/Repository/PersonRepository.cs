@@ -1,6 +1,5 @@
 ﻿
 using Common;
-using Microsoft.EntityFrameworkCore;
 
 namespace MyColabApiProject.Repository
 {
