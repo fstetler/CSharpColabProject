@@ -15,7 +15,7 @@ namespace MyColabApiProject.Queries
 
         public Task<List<Person>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_personRepository.GetAllPersonsAsync().Result);
+            return Task.FromResult(_personRepository.GetAllAsync().Result);
         }
     }
 }
