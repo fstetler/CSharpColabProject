@@ -10,6 +10,6 @@ namespace MyColabApiProject.Repository
 
         }
 
-        public DbSet<Person> People { get; set; }
+        public DbSet<Person> People { get; set; } // remove when ability to add person is added
     }
 }

@@ -24,6 +24,7 @@ public class Program
 
         WebApplication app = builder.Build();
 
+        // rewrite when ability to add person is added
         using (IServiceScope scope = app.Services.CreateScope())
         {
             PersonDbContext personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
