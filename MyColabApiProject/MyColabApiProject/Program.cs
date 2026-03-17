@@ -7,7 +7,7 @@ public class Program
     public static void Main(string[] args)
     {
 
-        var builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddDbContext<PersonDbContext>(
             options =>
@@ -21,24 +21,21 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 
-        var app = builder.Build();
 
-        using (var scope = app.Services.CreateScope())
+        WebApplication app = builder.Build();
+
+        // rewrite when ability to add person is added
+        using (IServiceScope scope = app.Services.CreateScope())
         {
-            var dbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
+            PersonDbContext personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
 
-            if (!dbContext.Persons.Any())
-            {
-                dbContext.Persons.Add(new Person { Id = Guid.NewGuid(), Name = "John Doe" });
-                dbContext.Persons.Add(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
-                dbContext.SaveChanges();
-            }
+            personDbContext.Set<Person>().Add(new Person { Id = Guid.NewGuid(), Name = "Jane Doe" });
+            personDbContext.Set<Person>().Add(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
+            personDbContext.SaveChanges();
         }
 
         app.MapControllers();
 
         app.Run();
-
-
     }
 }

@@ -1,20 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Common;
 
 namespace MyColabApiProject.Repository
 {
-    public class PersonRepository : IPersonRepository
+    public class PersonRepository : RepositoryBase<Person>, IPersonRepository
     {
-
-        private readonly PersonDbContext _db;
-
-        public PersonRepository(PersonDbContext personDbContext)
+        public PersonRepository(PersonDbContext personDbContext) : base(personDbContext)
         {
-            _db = personDbContext;
-        }
-
-        public async Task<List<Person>> GetAllPersonsAsync() 
-        { 
-            return await _db.Persons.ToListAsync();    
         }
     }
 }

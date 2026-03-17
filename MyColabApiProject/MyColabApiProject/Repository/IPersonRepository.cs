@@ -1,7 +1,8 @@
-﻿namespace MyColabApiProject.Repository
+﻿using Common;
+
+namespace MyColabApiProject.Repository
 {
-    public interface IPersonRepository
+    public interface IPersonRepository : IRepository<Person>
     {
-        public Task<List<Person>> GetAllPersonsAsync();
     }
 }
