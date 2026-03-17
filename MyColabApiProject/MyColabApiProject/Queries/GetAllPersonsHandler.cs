@@ -1,21 +1,13 @@
-﻿using MediatR;
+﻿using Common.CommonQueries;
 using MyColabApiProject.Repository;
 
 namespace MyColabApiProject.Queries
 {
-    public class GetAllPersonsHandler : IRequestHandler<GetAllPersonsQuery, List<Person>>
+    public class GetAllPersonsHandler : GetAllBaseHandler<Person>
     {
 
-        private readonly IPersonRepository _personRepository;
-
-        public GetAllPersonsHandler(IPersonRepository personRepository)
-        {
-            _personRepository = personRepository;
-        }
-
-        public Task<List<Person>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(_personRepository.GetAllAsync().Result);
+        public GetAllPersonsHandler(IPersonRepository personRepository) : base(personRepository) 
+        { 
         }
     }
 }

@@ -21,7 +21,6 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 
-
         WebApplication app = builder.Build();
 
         // rewrite when ability to add person is added
