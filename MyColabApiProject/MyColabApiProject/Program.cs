@@ -1,9 +1,7 @@
-using Common.CommonCommands;
 using Common.CommonRepository;
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject;
 using MyColabApiProject.Commands;
-using MyColabApiProject.Controllers;
 using MyColabApiProject.Queries;
 using MyColabApiProject.Repository;
 
