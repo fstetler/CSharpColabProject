@@ -3,7 +3,9 @@ using MediatR;
 
 namespace Common.CommonCommands
 {
-    public class CreateBaseHandler<TEntity> : IRequestHandler<CreateBaseCommand<TEntity>, TEntity> where TEntity : new()
+    public class CreateBaseHandler<TCommand, TEntity> : IRequestHandler<TCommand, TEntity> 
+        where TCommand : CreateBaseCommand<TEntity>
+        where TEntity : new()
     {
         private readonly IRepository<TEntity> _repository;
 
@@ -12,13 +14,13 @@ namespace Common.CommonCommands
             _repository = repository;
         }
 
-        public async Task<TEntity> Handle(CreateBaseCommand<TEntity> request, CancellationToken ct)
+        public async Task<TEntity> Handle(TCommand request, CancellationToken ct)
         {
             TEntity entity = CreateEntity(request);
             return await _repository.AddAsync(entity);
         }
 
-        protected virtual TEntity CreateEntity(CreateBaseCommand<TEntity> request)
+        protected virtual TEntity CreateEntity(TCommand request)
         {
             return new TEntity();
         }

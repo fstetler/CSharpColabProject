@@ -1,12 +1,11 @@
 ﻿using Common.CommonCommands;
 using Common.CommonRepository;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using MyColabApiProject.Repository;
 
 namespace MyColabApiProject.Commands
 {
-    public class CreatePersonhandler : CreateBaseHandler<Person>, IRequestHandler<CreatePersonCommand, Person>
+    public class CreatePersonhandler : CreateBaseHandler<CreateBaseCommand<Person>, Person>, IRequestHandler<CreatePersonCommand, Person>
     {
 
         private readonly IPersonRepository _personRepository;
@@ -31,7 +30,7 @@ namespace MyColabApiProject.Commands
 
         protected override Person CreateEntity(CreateBaseCommand<Person> request)
         {
-            return new Person { Id = Guid.NewGuid(), Name = request.Name };
+            return new Person { Id = Guid.NewGuid(), Name = request.Entity.Name };
         }
     }
 }

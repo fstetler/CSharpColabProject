@@ -6,7 +6,7 @@ namespace MyColabApiProject.Commands
     {
         public string Name { get; set; }
 
-        public CreatePersonCommand(string name) : base(name)
+        public CreatePersonCommand(string name) : base(new Person { Name = name })
         {
             Name = name;
         }

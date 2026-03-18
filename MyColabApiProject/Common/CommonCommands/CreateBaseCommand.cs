@@ -1,16 +1,15 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Common.CommonCommands
 {
-    public class CreateBaseCommand<TResult> : IRequest<TResult>
+    public class CreateBaseCommand<TEntity> : IRequest<TEntity>
     {
 
-        public string Name { get; set; }
+        public TEntity Entity { get; set; }
 
-        public CreateBaseCommand(string name)
+        public CreateBaseCommand(TEntity entity)
         {
-            Name = name;
+            Entity = entity;
         }
     }
 }
