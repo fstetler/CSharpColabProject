@@ -27,7 +27,7 @@ namespace MyColabApiProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Person>> CreatePerson([FromBody] CreatePersonCommand command)
         {
-            var person = await _mediator.Send(new CreatePersonCommand(command.Name));
+            var person = await _mediator.Send(new CreatePersonCommand(command.Entity));
             return CreatedAtAction(nameof(Get), person);
         }
 
