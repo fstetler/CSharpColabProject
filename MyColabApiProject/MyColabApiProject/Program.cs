@@ -3,6 +3,7 @@ using Common.CommonRepository;
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject;
 using MyColabApiProject.Commands;
+using MyColabApiProject.Controllers;
 using MyColabApiProject.Queries;
 using MyColabApiProject.Repository;
 
@@ -22,9 +23,8 @@ public class Program
             cfg.RegisterServicesFromAssemblyContaining<Program>();
             cfg.RegisterServicesFromAssemblyContaining<GetAllPersonsQuery>();
             cfg.RegisterServicesFromAssemblyContaining<GetAllPersonsHandler>(); 
-            // TODO ADD THESE WHEN MAKING CREATE ABILITY
-            cfg.RegisterServicesFromAssemblyContaining<CreatePersonCommand>(); // scan Common assembly too
-            cfg.RegisterServicesFromAssemblyContaining<CreatePersonhandler>(); // scan Common assembly too
+            cfg.RegisterServicesFromAssemblyContaining<CreatePersonCommand>(); 
+            cfg.RegisterServicesFromAssemblyContaining<CreatePersonhandler>();
         });
 
         builder.Services.AddControllers();
@@ -33,14 +33,14 @@ public class Program
 
         WebApplication app = builder.Build();
 
-        // rewrite when ability to add person is added
+        
         using (IServiceScope scope = app.Services.CreateScope())
         {
             PersonDbContext personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
 
-            personDbContext.Set<Person>().Add(new Person { Id = Guid.NewGuid(), Name = "Jane Doe" });
-            personDbContext.Set<Person>().Add(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
-            personDbContext.SaveChanges();
+            personDbContext.AddAsync(new Person {Id = Guid.NewGuid(), Name = "Jane Doe" });
+            personDbContext.AddAsync(new Person {Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
+            personDbContext.SaveChangesAsync();
         }
 
         app.MapControllers();

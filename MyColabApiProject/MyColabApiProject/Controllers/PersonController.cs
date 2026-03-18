@@ -30,7 +30,5 @@ namespace MyColabApiProject.Controllers
             var person = await _mediator.Send(new CreatePersonCommand(command.Entity));
             return CreatedAtAction(nameof(Get), person);
         }
-
-
     }
 }

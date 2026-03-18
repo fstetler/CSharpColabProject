@@ -1,5 +1,4 @@
 ﻿using Common.CommonQueries;
-using MediatR;
 
 namespace MyColabApiProject.Queries
 {
