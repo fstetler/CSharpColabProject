@@ -17,7 +17,10 @@ namespace Common.CommonCommands
         public async Task<TEntity> Handle(TCommand request, CancellationToken ct)
         {
             TEntity entity = CreateEntity(request);
-            return await _repository.AddAsync(entity);
+
+            await _repository.AddAsync(entity);
+            await _repository.SaveChangesAsync();
+            return entity;
         }
 
         protected virtual TEntity CreateEntity(TCommand request)
