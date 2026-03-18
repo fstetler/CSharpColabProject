@@ -21,5 +21,10 @@ namespace Common.CommonRepository
         {
             return await _db.Set<TEntity>().ToListAsync();
         }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _db.SaveChangesAsync();
+        }
     }
 }

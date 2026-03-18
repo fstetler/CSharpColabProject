@@ -1,6 +1,8 @@
+using Common.CommonCommands;
 using Common.CommonRepository;
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject;
+using MyColabApiProject.Commands;
 using MyColabApiProject.Queries;
 using MyColabApiProject.Repository;
 
@@ -21,8 +23,8 @@ public class Program
             cfg.RegisterServicesFromAssemblyContaining<GetAllPersonsQuery>();
             cfg.RegisterServicesFromAssemblyContaining<GetAllPersonsHandler>(); 
             // TODO ADD THESE WHEN MAKING CREATE ABILITY
-            //cfg.RegisterServicesFromAssemblyContaining<CreateBaseCommand<object>>(); // scan Common assembly too
-            //cfg.RegisterServicesFromAssemblyContaining<CreateBaseHandler<object>>(); // scan Common assembly too
+            cfg.RegisterServicesFromAssemblyContaining<CreatePersonCommand>(); // scan Common assembly too
+            cfg.RegisterServicesFromAssemblyContaining<CreatePersonhandler>(); // scan Common assembly too
         });
 
         builder.Services.AddControllers();
