@@ -1,5 +1,7 @@
+using Common.CommonRepository;
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject;
+using MyColabApiProject.Queries;
 using MyColabApiProject.Repository;
 
 public class Program
@@ -16,9 +18,15 @@ public class Program
         builder.Services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining<Program>();
+            cfg.RegisterServicesFromAssemblyContaining<GetAllPersonsQuery>();
+            cfg.RegisterServicesFromAssemblyContaining<GetAllPersonsHandler>(); 
+            // TODO ADD THESE WHEN MAKING CREATE ABILITY
+            //cfg.RegisterServicesFromAssemblyContaining<CreateBaseCommand<object>>(); // scan Common assembly too
+            //cfg.RegisterServicesFromAssemblyContaining<CreateBaseHandler<object>>(); // scan Common assembly too
         });
 
         builder.Services.AddControllers();
+        builder.Services.AddTransient<IRepository<Person>, PersonRepository>();
         builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 
         WebApplication app = builder.Build();

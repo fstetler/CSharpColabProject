@@ -3,7 +3,8 @@ using MediatR;
 
 namespace Common.CommonQueries
 {
-    public class GetAllBaseHandler<TEntity> : IRequestHandler<GetAllBaseQuery<TEntity>, List<TEntity>>
+    public class GetAllBaseHandler<TQuery, TEntity> : IRequestHandler<TQuery, List<TEntity>>
+        where TQuery : GetAllBaseQuery<TEntity>
     {
         private readonly IRepository<TEntity> _repository;
 
@@ -12,7 +13,7 @@ namespace Common.CommonQueries
             _repository = repository;
         }
 
-        public Task<List<TEntity>> Handle(GetAllBaseQuery<TEntity> request, CancellationToken cancellationToken)
+        public Task<List<TEntity>> Handle(TQuery request, CancellationToken cancellationToken)
         {
             return Task.FromResult(_repository.GetAllAsync().Result);
         }
