@@ -20,7 +20,7 @@ namespace MyColabApiProject.Commands
                 Name = request.Person.Name
             };
 
-            _repository.AddAsync(person);
+            await _repository.AddAsync(person);
             await _repository.SaveChangesAsync();
             return person;
         }
