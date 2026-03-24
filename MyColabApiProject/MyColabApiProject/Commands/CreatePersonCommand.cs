@@ -2,10 +2,12 @@
 
 namespace MyColabApiProject.Commands
 {
-    public class CreatePersonCommand : CreateBaseCommand<Person>
+    public class CreatePersonCommand : CommandBase<Person>
     {
-        public CreatePersonCommand(Person entity) : base(entity)
+        public Person Person { get; set; }
+        public CreatePersonCommand(Person person)
         {
+            Person = person;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MyColabApiProject.Queries
 {
-    public class GetAllPersonsQuery : GetAllBaseQuery<Person>
+    public class GetAllPersonsQuery : QueryBase<Person>
     {
 
     }

@@ -3,11 +3,18 @@ using MyColabApiProject.Repository;
 
 namespace MyColabApiProject.Queries
 {
-    public class GetAllPersonsHandler : GetAllBaseHandler<GetAllPersonsQuery, Person>
+    public class GetAllPersonsHandler : QueryHandlerBase<GetAllPersonsQuery, Person>
     {
+        private readonly IPersonRepository _personRepository;
 
-        public GetAllPersonsHandler(IPersonRepository personRepository) : base(personRepository) 
+        public GetAllPersonsHandler(IPersonRepository personRepository) 
         { 
+            _personRepository = personRepository;
+        }
+
+        public override async Task<List<Person>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
+        {
+            return await _personRepository.GetAllAsync();
         }
     }
 }

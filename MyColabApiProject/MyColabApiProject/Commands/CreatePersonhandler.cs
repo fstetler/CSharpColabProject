@@ -1,22 +1,28 @@
 ﻿using Common.CommonCommands;
-using Common.CommonRepository;
+using MyColabApiProject.Repository;
 
 namespace MyColabApiProject.Commands
 {
-    public class CreatePersonhandler : CreateBaseHandler<CreatePersonCommand, Person>
+    public class CreatePersonhandler : CommandHandlerBase<CreatePersonCommand, Person>
     {
+        private readonly IPersonRepository _repository;
 
-        public CreatePersonhandler(IRepository<Person> repository) : base(repository)
+        public CreatePersonhandler(IPersonRepository repository)
         {
+            _repository = repository;
         }
 
-        protected override Person CreateEntity(CreatePersonCommand request)
+        public override async Task<Person> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
-            return new Person 
+            Person person = new Person
             { 
-                Id = Guid.NewGuid(), 
-                Name = request.Entity.Name 
+                Id = Guid.NewGuid(),
+                Name = request.Person.Name
             };
+
+            await _repository.AddAsync(person);
+            await _repository.SaveChangesAsync();
+            return person;
         }
     }
 }
