@@ -18,10 +18,7 @@ public class Program
 
         builder.Services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssemblyContaining<GetAllPersonsQuery>();
-            cfg.RegisterServicesFromAssemblyContaining<GetAllPersonsHandler>(); 
-            cfg.RegisterServicesFromAssemblyContaining<CreatePersonCommand>(); 
-            cfg.RegisterServicesFromAssemblyContaining<CreatePersonhandler>();
+            cfg.RegisterServicesFromAssemblyContaining<Program>();
         });
 
         builder.Services.AddControllers();

@@ -12,7 +12,7 @@ namespace Common.CommonRepository
             _db = dbContext;
         }
 
-        public async void AddAsync(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             await _db.Set<TEntity>().AddAsync(entity);
         }
