@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MyColabApiProject.Commands;
+using MyColabApiProject.Domains;
 using MyColabApiProject.Queries;
 
 namespace MyColabApiProject.Controllers
@@ -18,17 +19,18 @@ namespace MyColabApiProject.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Person>>> Get()
+        public async Task<ActionResult<List<PersonDto>>> Get()
         {
-            Task<List<Person>> persons = _mediator.Send(new GetAllPersonsQuery());   
-            return await persons;
+            List<Person> persons = await _mediator.Send(new GetAllPersonsQuery());
+            List<PersonDto> personDtos = persons.Select(p => new PersonDto { Name = p.Name }).ToList();
+            return personDtos;
         }
 
         [HttpPost]
         public async Task<ActionResult<string>> CreatePerson([FromBody] CreatePersonCommand createPersonCommand)
         {
-            Task<Person> person = _mediator.Send(createPersonCommand);
-            return CreatedAtAction(nameof(Get), person.Result.Id);
+            Person person = await _mediator.Send(createPersonCommand);
+            return CreatedAtAction(nameof(Get), person.Id.ToString());
         }
     }
 }
