@@ -4,10 +4,6 @@ namespace MyColabApiProject.Commands
 {
     public class CreatePersonCommand : CommandBase<Person>
     {
-        public Person Person { get; set; }
-        public CreatePersonCommand(Person person)
-        {
-            Person = person;
-        }
+        public required String Name { get; set; }
     }
 }
