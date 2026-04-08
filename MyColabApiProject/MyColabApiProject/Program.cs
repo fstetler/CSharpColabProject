@@ -1,41 +1,44 @@
+using Common.CommonRepository;
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject;
 using MyColabApiProject.Repository;
-
-public class Program
+namespace Program
 {
-    public static void Main(string[] args)
+    public class Program
     {
-
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-
-        builder.Services.AddDbContext<PersonDbContext>(
-            options =>
-                options.UseInMemoryDatabase("PeopleDb"));
-
-        builder.Services.AddMediatR(cfg =>
+        public static void Main(string[] args)
         {
-            cfg.RegisterServicesFromAssemblyContaining<Program>();
-        });
 
-        builder.Services.AddControllers();
-        builder.Services.AddTransient<IPersonRepository, PersonRepository>();
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<PersonDbContext>(
+                options =>
+                    options.UseInMemoryDatabase("PeopleDb"));
+
+            builder.Services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssemblyContaining<Program>();
+            });
+
+            builder.Services.AddControllers();
+            builder.Services.AddTransient<IRepository<Person>, PersonRepository>();
+            builder.Services.AddTransient<IPersonRepository, PersonRepository>();
+
+            WebApplication app = builder.Build();
 
 
-        WebApplication app = builder.Build();
+            using (IServiceScope scope = app.Services.CreateScope())
+            {
+                PersonDbContext personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
 
-        // rewrite when ability to add person is added
-        using (IServiceScope scope = app.Services.CreateScope())
-        {
-            PersonDbContext personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
+                personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe" });
+                personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
+                personDbContext.SaveChangesAsync();
+            }
 
-            personDbContext.Set<Person>().Add(new Person { Id = Guid.NewGuid(), Name = "Jane Doe" });
-            personDbContext.Set<Person>().Add(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
-            personDbContext.SaveChanges();
+            app.MapControllers();
+
+            app.Run();
         }
-
-        app.MapControllers();
-
-        app.Run();
-    }
+    } 
 }

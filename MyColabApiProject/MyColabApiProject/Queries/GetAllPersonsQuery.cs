@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using Common.CommonQueries;
 
 namespace MyColabApiProject.Queries
 {
-    public class GetAllPersonsQuery : IRequest<List<Person>>
+    public class GetAllPersonsQuery : QueryBase<Person>
     {
 
     }
