@@ -2,6 +2,6 @@
 {
     public class PersonDto
     {
-        public String Name { get; set; }
+        public required String Name { get; set; }
     }
 }

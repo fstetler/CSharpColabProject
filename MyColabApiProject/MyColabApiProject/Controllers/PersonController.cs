@@ -21,9 +21,8 @@ namespace MyColabApiProject.Controllers
         [HttpGet]
         public async Task<ActionResult<List<PersonDto>>> Get()
         {
-            List<Person> persons = await _mediator.Send(new GetAllPersonsQuery());
-            List<PersonDto> personDtos = persons.Select(p => new PersonDto { Name = p.Name }).ToList();
-            return personDtos;
+            List<PersonDto> personsDtos = await _mediator.Send(new GetAllPersonsQuery());
+            return personsDtos;
         }
 
         [HttpPost]

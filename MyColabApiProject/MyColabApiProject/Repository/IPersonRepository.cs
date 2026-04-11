@@ -1,4 +1,5 @@
 ﻿using Common.CommonRepository;
+using MyColabApiProject.Domains;
 
 namespace MyColabApiProject.Repository
 {
