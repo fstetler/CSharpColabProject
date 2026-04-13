@@ -7,5 +7,9 @@
         public Task AddAsync(TEntity entity);
 
         public Task<int> SaveChangesAsync();
+
+        public Task<TEntity> GetByIdAsync(Guid id);
+
+        public TEntity Update(TEntity entity);
     }
 }

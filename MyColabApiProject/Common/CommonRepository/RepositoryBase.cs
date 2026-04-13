@@ -26,5 +26,15 @@ namespace Common.CommonRepository
         {
             return await _db.SaveChangesAsync();
         }
+
+        public async Task<TEntity> GetByIdAsync(Guid id)
+        {
+            return await _db.Set<TEntity>().FindAsync(id);
+        }
+
+        public TEntity Update(TEntity entity)
+        {
+            return _db.Set<TEntity>().Update(entity).Entity;
+        }
     }
 }

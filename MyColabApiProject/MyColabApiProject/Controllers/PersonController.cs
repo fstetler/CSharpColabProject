@@ -31,5 +31,15 @@ namespace MyColabApiProject.Controllers
             Person person = await _mediator.Send(createPersonCommand);
             return CreatedAtAction(nameof(Get), person.Id.ToString());
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<PersonDto>> UpdatePerson(Guid id, [FromBody] UpdatePersonCommand updatePersonCommand)
+        {
+            updatePersonCommand.Id = id;
+            Person person = await _mediator.Send(updatePersonCommand);
+            PersonDto personDto = new PersonDto { Name = person.Name };
+            return Ok(personDto);
+        }
+
     }
 }
