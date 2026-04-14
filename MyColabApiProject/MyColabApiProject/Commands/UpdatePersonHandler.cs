@@ -13,12 +13,12 @@ namespace MyColabApiProject.Commands
             _repository = repository;
         }
 
-        public override async Task<Person> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
+        public override async Task<Person?> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
         {
             Person? person = await _repository.GetByIdAsync(request.Id);
-            if (person == null)
+            if (person is null)
             {
-                throw new KeyNotFoundException($"Person with Id '{request.Id}' was not found.");
+                return null;
             }
 
             person.Name = request.Name;

@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Common.CommonRepository
 {
@@ -27,7 +27,7 @@ namespace Common.CommonRepository
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(Guid id)
+        public async Task<TEntity?> GetByIdAsync(Guid id)
         {
             return await _db.Set<TEntity>().FindAsync(id);
         }
