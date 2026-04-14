@@ -4,8 +4,7 @@ namespace MyColabApiProject.Commands
 {
     public class UpdatePersonCommand : UpdateCommandBase<Person>
     {
-        public UpdatePersonCommand(Guid id, Person entity) : base(id, entity)
-        {
-        }
+        public Guid Id { get; set; }
+        public required String Name { get; set; }
     }
 }

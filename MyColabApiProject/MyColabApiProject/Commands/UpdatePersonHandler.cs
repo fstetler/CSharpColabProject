@@ -21,7 +21,7 @@ namespace MyColabApiProject.Commands
                 throw new KeyNotFoundException($"Person with Id '{request.Id}' was not found.");
             }
 
-            person.Name = request.Entity.Name;
+            person.Name = request.Name;
             _repository.Update(person);
             await _repository.SaveChangesAsync();
             return person;
