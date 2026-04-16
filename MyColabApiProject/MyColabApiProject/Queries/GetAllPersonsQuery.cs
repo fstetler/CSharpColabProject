@@ -5,7 +5,6 @@ namespace MyColabApiProject.Queries
 {
     public class GetAllPersonsQuery : QueryBase<PersonDto>
     {
-        public Guid Id { get; set; }
-        public String? Name { get; }
+
     }
 }
