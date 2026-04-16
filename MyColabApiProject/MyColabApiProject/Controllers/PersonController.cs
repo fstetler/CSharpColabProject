@@ -26,32 +26,24 @@ namespace MyColabApiProject.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> CreatePerson([FromBody] CreatePersonCommand createPersonCommand)
+        public async Task<ActionResult<PersonDto>> CreatePerson([FromBody] CreatePersonCommand createPersonCommand)
         {
-            Person person = await _mediator.Send(createPersonCommand);
-            return CreatedAtAction(nameof(Get), person.Id.ToString());
+            PersonDto personDto = await _mediator.Send(createPersonCommand);
+            return CreatedAtAction(nameof(Get), personDto.Id);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<PersonDto>> UpdatePerson(Guid id, [FromBody] UpdatePersonCommand updatePersonCommand)
         {
-
-            UpdatePersonCommand command = new UpdatePersonCommand()
-            {
-                Id = id,
-                Name = updatePersonCommand.Name
-            };
-
-            Person? person = await _mediator.Send(command);
+            updatePersonCommand.Id = id;
+            PersonDto? personDto = await _mediator.Send(updatePersonCommand);   
             
-            if (person is null)
+            if (personDto is null)
             {
                 return NotFound();
             }
             
-            PersonDto personDto = new PersonDto { Name = person.Name };
             return Ok(personDto);
         }
-
     }
 }

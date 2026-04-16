@@ -1,9 +1,11 @@
-﻿using Common.CommonUpdateCommand;
+﻿using Common.CommonCommands;
+using MyColabApiProject.Domains;
+using MyColabApiProject.Mappers;
 using MyColabApiProject.Repository;
 
 namespace MyColabApiProject.Commands
 {
-    public class UpdatePersonHandler : UpdateCommandHandlerBase<UpdatePersonCommand, Person>
+    public class UpdatePersonHandler : CommandHandlerBase<UpdatePersonCommand, PersonDto>
     {
 
         private readonly IPersonRepository _repository;
@@ -13,7 +15,7 @@ namespace MyColabApiProject.Commands
             _repository = repository;
         }
 
-        public override async Task<Person?> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
+        public override async Task<PersonDto?> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
         {
             Person? person = await _repository.GetByIdAsync(request.Id);
             if (person is null)
@@ -24,7 +26,7 @@ namespace MyColabApiProject.Commands
             person.Name = request.Name;
             _repository.Update(person);
             await _repository.SaveChangesAsync();
-            return person;
+            return PersonMapper.Map(person);
         }
     }
 }
