@@ -1,12 +1,11 @@
 using Common.CommonRepository;
 using Microsoft.EntityFrameworkCore;
-using MyColabApiProject;
 using MyColabApiProject.Repository;
-namespace Program
+namespace MyColabApiProject
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
 
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -31,9 +30,9 @@ namespace Program
             {
                 PersonDbContext personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
 
-                personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe" });
-                personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
-                personDbContext.SaveChangesAsync();
+                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe" });
+                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
+                await personDbContext.SaveChangesAsync();
             }
 
             app.MapControllers();

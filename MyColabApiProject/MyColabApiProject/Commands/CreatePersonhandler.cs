@@ -1,9 +1,11 @@
 ﻿using Common.CommonCommands;
+using MyColabApiProject.Domains;
+using MyColabApiProject.Mappers;
 using MyColabApiProject.Repository;
 
 namespace MyColabApiProject.Commands
 {
-    public class CreatePersonhandler : CommandHandlerBase<CreatePersonCommand, Person>
+    public class CreatePersonhandler : CommandHandlerBase<CreatePersonCommand, PersonDto>
     {
         private readonly IPersonRepository _repository;
 
@@ -12,7 +14,7 @@ namespace MyColabApiProject.Commands
             _repository = repository;
         }
 
-        public override async Task<Person> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
+        public override async Task<PersonDto?> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
             Person person = new Person
             { 
@@ -22,7 +24,7 @@ namespace MyColabApiProject.Commands
 
             await _repository.AddAsync(person);
             await _repository.SaveChangesAsync();
-            return person;
+            return PersonMapper.Map(person);
         }
     }
 }
