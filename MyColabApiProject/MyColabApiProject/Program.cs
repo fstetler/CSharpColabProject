@@ -1,6 +1,7 @@
 using Common.CommonRepository;
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject.Repository;
+using Microsoft.OpenApi;
 namespace MyColabApiProject
 {
     public class Program
@@ -19,11 +20,21 @@ namespace MyColabApiProject
                 cfg.RegisterServicesFromAssemblyContaining<Program>();
             });
 
+            builder.Services.AddOpenApi();
             builder.Services.AddControllers();
             builder.Services.AddTransient<IRepository<Person>, PersonRepository>();
             builder.Services.AddTransient<IPersonRepository, PersonRepository>();
 
             WebApplication app = builder.Build();
+
+            app.MapOpenApi();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/openapi/v1.json", "Mittfinaste api");
+                options.EnableTryItOutByDefault();
+                options.RoutePrefix = "swagger"; // optional but recommended
+            });
 
 
             using (IServiceScope scope = app.Services.CreateScope())
