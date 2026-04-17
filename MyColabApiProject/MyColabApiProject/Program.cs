@@ -33,7 +33,7 @@ namespace MyColabApiProject
             {
                 options.SwaggerEndpoint("/openapi/v1.json", "Mittfinaste api");
                 options.EnableTryItOutByDefault();
-                options.RoutePrefix = "swagger"; // optional but recommended
+                options.RoutePrefix = "swagger";
             });
 
 
