@@ -1,11 +1,12 @@
 ﻿using Common.CommonQueries;
+using Common.Result;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Repository;
 using MyColabApiProject.Mappers;
 
 namespace MyColabApiProject.Queries
 {
-    public class GetAllPersonsHandler : QueryHandlerBase<GetAllPersonsQuery, PersonDto>
+    public class GetAllPersonsHandler : QueryHandlerBase<GetAllPersonsQuery, List<PersonDto>>
     {
         private readonly IPersonRepository _personRepository;
 
@@ -14,10 +15,10 @@ namespace MyColabApiProject.Queries
             _personRepository = personRepository;
         }
 
-        public override async Task<List<PersonDto>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
+        public override async Task<Result<List<PersonDto>>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
         {
             List<Person> persons = await _personRepository.GetAllAsync();
-            return PersonMapper.Map(persons);
+            return Result<List<PersonDto>>.Success(PersonMapper.Map(persons));
         }
     }
 }

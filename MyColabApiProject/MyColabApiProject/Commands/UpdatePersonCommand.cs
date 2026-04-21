@@ -1,6 +1,6 @@
-﻿using Common.CommonCommands;
-using MyColabApiProject.Domains;
+﻿using MyColabApiProject.Domains;
 using System.Text.Json.Serialization;
+using Common.CommonCommands;
 
 namespace MyColabApiProject.Commands
 {

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Common.Result;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MyColabApiProject.Commands;
 using MyColabApiProject.Domains;
@@ -21,29 +22,40 @@ namespace MyColabApiProject.Controllers
         [HttpGet]
         public async Task<ActionResult<List<PersonDto>>> Get()
         {
-            List<PersonDto> personsDtos = await _mediator.Send(new GetAllPersonsQuery());
-            return personsDtos;
+            Result<List<PersonDto>> personsDtos = await _mediator.Send(new GetAllPersonsQuery());
+
+            if (personsDtos.IsFailure)
+            {
+                return NotFound(personsDtos.Error);
+            }
+
+            return Ok(personsDtos.Value);
         }
 
         [HttpPost]
         public async Task<ActionResult<PersonDto>> CreatePerson([FromBody] CreatePersonCommand createPersonCommand)
         {
-            PersonDto personDto = await _mediator.Send(createPersonCommand);
-            return CreatedAtAction(nameof(Get), personDto.Id);
+            Result<PersonDto> personDto = await _mediator.Send(createPersonCommand);
+
+            if (personDto.IsFailure) 
+            {
+                return BadRequest(personDto.Error);
+            }
+            return CreatedAtAction(nameof(Get), personDto.Value.Id);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<PersonDto>> UpdatePerson(Guid id, [FromBody] UpdatePersonCommand updatePersonCommand)
         {
             updatePersonCommand.Id = id;
-            PersonDto? personDto = await _mediator.Send(updatePersonCommand);   
-            
-            if (personDto is null)
+            Result<PersonDto> personDto = await _mediator.Send(updatePersonCommand);   
+
+            if (personDto.IsFailure)
             {
-                return NotFound();
+                return NotFound(personDto.Error);
             }
-            
-            return Ok(personDto);
+
+            return Ok(personDto.Value);
         }
     }
 }

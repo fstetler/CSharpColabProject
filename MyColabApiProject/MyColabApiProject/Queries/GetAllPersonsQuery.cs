@@ -3,7 +3,7 @@ using MyColabApiProject.Domains;
 
 namespace MyColabApiProject.Queries
 {
-    public class GetAllPersonsQuery : QueryBase<PersonDto>
+    public class GetAllPersonsQuery : QueryBase<List<PersonDto>>
     {
 
     }
