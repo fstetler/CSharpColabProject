@@ -1,12 +1,12 @@
-﻿using MediatR;
+﻿using Common.Result;
+using MediatR;
 
 namespace Common.CommonQueries
 {
-    public abstract class QueryHandlerBase<TQuery, TEntity> : IRequestHandler<TQuery, List<TEntity>>
-        where TQuery : QueryBase<TEntity>
+    public abstract class QueryHandlerBase<TQuery, TResult> : IRequestHandler<TQuery, ResultGeneric<TResult>> 
+        where TQuery : QueryBase<ResultGeneric<TResult>>
     {
 
-        public abstract Task<List<TEntity>> Handle(TQuery request, CancellationToken cancellationToken);
-
+        public abstract Task<ResultGeneric<TResult>> Handle(TQuery request, CancellationToken cancellationToken);
     }
 }

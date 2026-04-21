@@ -2,7 +2,7 @@
 
 namespace Common.CommonQueries
 {
-    public class QueryBase<TEntity> : IRequest<List<TEntity>>
+    public class QueryBase<TResult> : IRequest<TResult>
     {
     }
 }
