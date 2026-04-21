@@ -22,7 +22,7 @@ namespace MyColabApiProject.Controllers
         [HttpGet]
         public async Task<ActionResult<List<PersonDto>>> Get()
         {
-            ResultGeneric<List<PersonDto>> personsDtos = await _mediator.Send(new GetAllPersonsQuery());
+            Result<List<PersonDto>> personsDtos = await _mediator.Send(new GetAllPersonsQuery());
 
             if (personsDtos.IsFailure)
             {
@@ -35,7 +35,7 @@ namespace MyColabApiProject.Controllers
         [HttpPost]
         public async Task<ActionResult<PersonDto>> CreatePerson([FromBody] CreatePersonCommand createPersonCommand)
         {
-            ResultGeneric<PersonDto> personDto = await _mediator.Send(createPersonCommand);
+            Result<PersonDto> personDto = await _mediator.Send(createPersonCommand);
 
             if (personDto.IsFailure) 
             {
@@ -48,13 +48,13 @@ namespace MyColabApiProject.Controllers
         public async Task<ActionResult<PersonDto>> UpdatePerson(Guid id, [FromBody] UpdatePersonCommand updatePersonCommand)
         {
             updatePersonCommand.Id = id;
-            ResultGeneric<PersonDto> personDto = await _mediator.Send(updatePersonCommand);   
-            
+            Result<PersonDto> personDto = await _mediator.Send(updatePersonCommand);   
+
             if (personDto.IsFailure)
             {
                 return NotFound(personDto.Error);
             }
-            
+
             return Ok(personDto.Value);
         }
     }

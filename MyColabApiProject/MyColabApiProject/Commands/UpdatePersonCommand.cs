@@ -1,11 +1,10 @@
-﻿using Common.CommonCommands;
-using MyColabApiProject.Domains;
+﻿using MyColabApiProject.Domains;
 using System.Text.Json.Serialization;
-using Common.Result;
+using Common.CommonCommands;
 
 namespace MyColabApiProject.Commands
 {
-    public class UpdatePersonCommand : CommandBase<ResultGeneric<PersonDto>>
+    public class UpdatePersonCommand : CommandBase<PersonDto>
     {
         [JsonIgnore]
         public Guid Id { get; set; }

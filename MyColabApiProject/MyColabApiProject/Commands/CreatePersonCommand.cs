@@ -1,10 +1,9 @@
 ﻿using Common.CommonCommands;
-using Common.Result;
 using MyColabApiProject.Domains;
 
 namespace MyColabApiProject.Commands
 {
-    public class CreatePersonCommand : CommandBase<ResultGeneric<PersonDto>>
+    public class CreatePersonCommand : CommandBase<PersonDto>
     {
         public required String Name { get; set; }
     }

@@ -15,10 +15,10 @@ namespace MyColabApiProject.Queries
             _personRepository = personRepository;
         }
 
-        public override async Task<ResultGeneric<List<PersonDto>>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
+        public override async Task<Result<List<PersonDto>>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
         {
             List<Person> persons = await _personRepository.GetAllAsync();
-            return ResultGeneric<List<PersonDto>>.Success(PersonMapper.Map(persons));
+            return Result<List<PersonDto>>.Success(PersonMapper.Map(persons));
         }
     }
 }

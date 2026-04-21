@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Common.Result;
 
-namespace Common.CommonCommands
+namespace Common.CommonCommands 
 {
-    public abstract class CommandHandlerBase<TCommand, TEntity> : IRequestHandler<TCommand, ResultGeneric<TEntity>> 
-        where TCommand : CommandBase<ResultGeneric<TEntity>>
+    public abstract class CommandHandlerBase<TCommand, TEntity> : IRequestHandler<TCommand, Result<TEntity>> 
+        where TCommand : CommandBase<TEntity>
         where TEntity : class
     {
-        public abstract Task<ResultGeneric<TEntity>> Handle(TCommand request, CancellationToken cancellationToken);
+        public abstract Task<Result<TEntity>> Handle(TCommand request, CancellationToken cancellationToken);
     }
 }
