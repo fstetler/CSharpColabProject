@@ -15,7 +15,6 @@
         }
 
         public static ResultGeneric<T> Success(T value) => new ResultGeneric<T>(value);
-        public static ResultGeneric<List<T>> Success(List<T> value) => new ResultGeneric<List<T>>(value);
         public static new ResultGeneric<T> Failure(string error) => new ResultGeneric<T>(error);
     }
 }
