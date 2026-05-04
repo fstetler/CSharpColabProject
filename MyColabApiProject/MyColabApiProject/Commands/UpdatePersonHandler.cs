@@ -21,20 +21,20 @@ namespace MyColabApiProject.Commands
 
             if (string.IsNullOrWhiteSpace(request.Name))
             {
-                return Result<PersonDto>.Failure("Name cannot be empty or whitespace.");
+                return (Result<PersonDto>)Result<PersonDto>.BadRequest("Name cannot be empty or whitespace.");
             }
 
             Person? person = await _repository.GetByIdAsync(request.Id);
 
             if (person is null)
             {
-                return Result<PersonDto>.Failure($"Person with id '{request.Id}' was not found");
+                return (Result<PersonDto>)Result<PersonDto>.NotFound($"Person with id '{request.Id}' was not found");
             }
 
             person.Name = request.Name;
             _repository.Update(person);
             await _repository.SaveChangesAsync();
-            return Result<PersonDto>.Success(PersonMapper.Map(person));
+            return Result<PersonDto>.Ok(PersonMapper.Map(person));
         }
     }
 }

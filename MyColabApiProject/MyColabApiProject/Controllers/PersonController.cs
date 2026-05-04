@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyColabApiProject.Commands;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Queries;
+using System.Net;
 
 namespace MyColabApiProject.Controllers
 {
@@ -24,12 +25,12 @@ namespace MyColabApiProject.Controllers
         {
             Result<List<PersonDto>> personsDtos = await _mediator.Send(new GetAllPersonsQuery());
 
-            if (personsDtos.IsFailure)
+            if (personsDtos.IsFailure())
             {
-                return NotFound(personsDtos.Error);
+                return NotFound(personsDtos.Error());
             }
 
-            return Ok(personsDtos.Value);
+            return Ok(personsDtos.Value());
         }
 
         [HttpPost]
@@ -37,11 +38,11 @@ namespace MyColabApiProject.Controllers
         {
             Result<PersonDto> personDto = await _mediator.Send(createPersonCommand);
 
-            if (personDto.IsFailure) 
+            if (personDto.IsFailure()) 
             {
-                return BadRequest(personDto.Error);
+                return BadRequest(personDto.Error());
             }
-            return CreatedAtAction(nameof(Get), personDto.Value.Id);
+            return CreatedAtAction(nameof(Get), personDto.Value().Id);
         }
 
         [HttpPut("{id}")]
@@ -50,12 +51,12 @@ namespace MyColabApiProject.Controllers
             updatePersonCommand.Id = id;
             Result<PersonDto> personDto = await _mediator.Send(updatePersonCommand);   
 
-            if (personDto.IsFailure)
+            if (personDto.StatusCode() == HttpStatusCode.NotFound)
             {
-                return NotFound(personDto.Error);
+                return NotFound(personDto.Error());
             }
 
-            return Ok(personDto.Value);
+            return Ok(personDto.Value());
         }
     }
 }

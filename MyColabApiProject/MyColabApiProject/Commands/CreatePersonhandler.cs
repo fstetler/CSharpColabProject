@@ -3,6 +3,7 @@ using Common.Result;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Mappers;
 using MyColabApiProject.Repository;
+using System.Net;
 
 namespace MyColabApiProject.Commands
 {
@@ -20,7 +21,7 @@ namespace MyColabApiProject.Commands
 
             if (string.IsNullOrWhiteSpace(request.Name))
             {
-                return Result<PersonDto>.Failure("Name cannot be empty or whitespace.");
+                return (Result<PersonDto>)Result<PersonDto>.BadRequest("Name cannot be empty or whitespace.");
             }
 
             Person person = new Person
@@ -31,7 +32,7 @@ namespace MyColabApiProject.Commands
 
             await _repository.AddAsync(person);
             await _repository.SaveChangesAsync();
-            return Result<PersonDto>.Success(PersonMapper.Map(person));
+            return Result<PersonDto>.Ok(PersonMapper.Map(person));
         }
     }
 }

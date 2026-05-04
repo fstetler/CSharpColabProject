@@ -18,7 +18,7 @@ namespace MyColabApiProject.Queries
         public override async Task<Result<List<PersonDto>>> Handle(GetAllPersonsQuery request, CancellationToken cancellationToken)
         {
             List<Person> persons = await _personRepository.GetAllAsync();
-            return Result<List<PersonDto>>.Success(PersonMapper.Map(persons));
+            return Result<List<PersonDto>>.Ok(PersonMapper.Map(persons));
         }
     }
 }
