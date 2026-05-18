@@ -40,8 +40,8 @@ namespace MyColabApiProject
             {
                 PersonDbContext personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
 
-                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe" });
-                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
+                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe", Address = "Väg 1"});
+                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler", Address = "Väg 2"});
                 await personDbContext.SaveChangesAsync();
             }
 

@@ -1,15 +1,16 @@
 ﻿using Common.CommonCommands;
 using Common.Result;
+using FluentValidation.Results;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Mappers;
 using MyColabApiProject.Repository;
+using MyColabApiProject.Validator;
 
 namespace MyColabApiProject.Commands
 {
     public class CreatePersonHandler : CommandHandlerBase<CreatePersonCommand, PersonDto>
     {
         private readonly IPersonRepository _repository;
-        public static int value = 1;
 
         public CreatePersonHandler(IPersonRepository repository)
         {
@@ -19,15 +20,19 @@ namespace MyColabApiProject.Commands
         public override async Task<Result<PersonDto>> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
 
-            if (string.IsNullOrWhiteSpace(request.Name))
+            CreatePersonCommandValidator validator = new CreatePersonCommandValidator();
+            ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (!validationResult.IsValid)
             {
-                return BadRequest("Name cannot be empty or whitespace.");
+                return BadRequest(string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)));
             }
 
             Person person = new Person
             { 
                 Id = Guid.NewGuid(),
-                Name = request.Name
+                Name = request.Name,
+                Address = request.Address
             };
 
             await _repository.AddAsync(person);
