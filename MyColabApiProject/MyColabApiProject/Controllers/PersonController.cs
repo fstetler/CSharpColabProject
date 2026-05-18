@@ -1,16 +1,18 @@
-﻿using MediatR;
+﻿using Common.Controllers;
+using Common.Result;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MyColabApiProject.Commands;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Queries;
+using System.Net;
 
 namespace MyColabApiProject.Controllers
 {
     [ApiController]
     [Route("person")]
-    public class PersonController : ControllerBase
+    public class PersonController : MyColabApiProjectControllerBase
     {
-
         private readonly IMediator _mediator;
 
         public PersonController(IMediator mediator)
@@ -19,31 +21,31 @@ namespace MyColabApiProject.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PersonDto>>> Get()
+        [ProducesResponseType(typeof(PersonDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Get()
         {
-            List<PersonDto> personsDtos = await _mediator.Send(new GetAllPersonsQuery());
-            return personsDtos;
+            Result<List<PersonDto>> personsDtos = await _mediator.Send(new GetAllPersonsQuery());
+            return GetActionResult(personsDtos);
         }
 
         [HttpPost]
-        public async Task<ActionResult<PersonDto>> CreatePerson([FromBody] CreatePersonCommand createPersonCommand)
+        [ProducesResponseType(typeof(PersonDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> CreatePerson([FromBody] CreatePersonCommand createPersonCommand)
         {
-            PersonDto personDto = await _mediator.Send(createPersonCommand);
-            return CreatedAtAction(nameof(Get), personDto.Id);
+            Result<PersonDto> personDto = await _mediator.Send(createPersonCommand);
+            return GetActionResult(personDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<PersonDto>> UpdatePerson(Guid id, [FromBody] UpdatePersonCommand updatePersonCommand)
+        [ProducesResponseType(typeof(PersonDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> UpdatePerson(Guid id, [FromBody] UpdatePersonCommand updatePersonCommand)
         {
             updatePersonCommand.Id = id;
-            PersonDto? personDto = await _mediator.Send(updatePersonCommand);   
-            
-            if (personDto is null)
-            {
-                return NotFound();
-            }
-            
-            return Ok(personDto);
+            Result<PersonDto> personDto = await _mediator.Send(updatePersonCommand);   
+            return GetActionResult(personDto);
         }
     }
 }

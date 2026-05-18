@@ -1,7 +1,6 @@
 using Common.CommonRepository;
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject.Repository;
-using Microsoft.OpenApi;
 namespace MyColabApiProject
 {
     public class Program
