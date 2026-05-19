@@ -8,7 +8,6 @@ namespace MyColabApiProject.Commands
     {
         [JsonIgnore]
         public Guid Id { get; set; }
-        public required String Name { get; set; }
-        public required string Address { get; set; } 
+        public required string Name { get; set; }
     }
 }
