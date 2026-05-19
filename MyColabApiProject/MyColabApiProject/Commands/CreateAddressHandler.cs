@@ -1,10 +1,8 @@
 ﻿using Common.CommonCommands;
 using Common.Result;
-using FluentValidation.Results;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Mappers;
 using MyColabApiProject.Repository;
-using MyColabApiProject.Validator;
 
 namespace MyColabApiProject.Commands
 {
@@ -19,14 +17,6 @@ namespace MyColabApiProject.Commands
 
         public override async Task<Result<AddressDto>> Handle(CreateAddressCommand request, CancellationToken cancellationToken)
         {
-            CreateAddressCommandValidator validator = new CreateAddressCommandValidator();
-            ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
-
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage)));
-            }
-
             Address address = new Address
             { 
                 Id = Guid.NewGuid(),

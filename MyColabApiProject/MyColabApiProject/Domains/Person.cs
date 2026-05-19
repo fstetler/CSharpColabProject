@@ -10,7 +10,7 @@ namespace MyColabApiProject
         [SetsRequiredMembers]
         public Person()
         {
-            Name = string.Empty;;
+            Name = string.Empty;
         }
     }
 }

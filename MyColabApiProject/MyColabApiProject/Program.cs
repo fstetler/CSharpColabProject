@@ -1,4 +1,6 @@
+using Common.CommonBehaviors;
 using Common.CommonRepository;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using MyColabApiProject.Repository;
 namespace MyColabApiProject
@@ -20,13 +22,12 @@ namespace MyColabApiProject
             builder.Services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssemblyContaining<Program>();
+                cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
 
             builder.Services.AddOpenApi();
             builder.Services.AddControllers();
-            builder.Services.AddTransient<IRepository<Person>, PersonRepository>();
             builder.Services.AddTransient<IPersonRepository, PersonRepository>();
-            builder.Services.AddTransient<IRepository<Address>, AddressRepository>();
             builder.Services.AddTransient<IAddressRepository, AddressRepository>();
 
             WebApplication app = builder.Build();
