@@ -5,15 +5,11 @@ namespace MyColabApiProject
     public class Person
     {
         public Guid Id { get; set; }
-        public required string Name { get; set; }
-
-        public required string Address { get; set; }
+        public required string Name { get; set; } = string.Empty;
 
         [SetsRequiredMembers]
         public Person()
         {
-            Name = string.Empty;
-            Address = string.Empty;
         }
     }
 }

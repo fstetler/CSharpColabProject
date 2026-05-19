@@ -31,8 +31,7 @@ namespace MyColabApiProject.Commands
             Person person = new Person
             { 
                 Id = Guid.NewGuid(),
-                Name = request.Name,
-                Address = request.Address
+                Name = request.Name
             };
 
             await _repository.AddAsync(person);

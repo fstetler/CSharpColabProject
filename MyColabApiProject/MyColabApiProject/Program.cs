@@ -13,6 +13,9 @@ namespace MyColabApiProject
             builder.Services.AddDbContext<PersonDbContext>(
                 options =>
                     options.UseInMemoryDatabase("PeopleDb"));
+            builder.Services.AddDbContext<AddressDbContext>(
+                options =>
+                    options.UseInMemoryDatabase("AddressDb"));
 
             builder.Services.AddMediatR(cfg =>
             {
@@ -23,6 +26,8 @@ namespace MyColabApiProject
             builder.Services.AddControllers();
             builder.Services.AddTransient<IRepository<Person>, PersonRepository>();
             builder.Services.AddTransient<IPersonRepository, PersonRepository>();
+            builder.Services.AddTransient<IRepository<Address>, AddressRepository>();
+            builder.Services.AddTransient<IAddressRepository, AddressRepository>();
 
             WebApplication app = builder.Build();
 
@@ -39,10 +44,14 @@ namespace MyColabApiProject
             using (IServiceScope scope = app.Services.CreateScope())
             {
                 PersonDbContext personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
+                AddressDbContext addressDbContext = scope.ServiceProvider.GetRequiredService<AddressDbContext>();
 
-                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe", Address = "Väg 1"});
-                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler", Address = "Väg 2"});
+                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe"});
+                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler"});
                 await personDbContext.SaveChangesAsync();
+
+                await addressDbContext.AddAsync(new Address { Id = Guid.NewGuid(), StreetName = "Magasinsgatan", StreetNumber = "9A", PostalCode = "75342", City = "Uppsala" });
+                await addressDbContext.SaveChangesAsync();
             }
 
             app.MapControllers();
