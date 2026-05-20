@@ -4,7 +4,7 @@ namespace MyColabApiProject.Repository
 {
     public class AddressRepository : RepositoryBase<Address>, IAddressRepository
     {
-        public AddressRepository(AddressDbContext addressDbContext) : base(addressDbContext)
+        public AddressRepository(MyColabDbContext myColabDbContext) : base(myColabDbContext)
         {
         }
     }
