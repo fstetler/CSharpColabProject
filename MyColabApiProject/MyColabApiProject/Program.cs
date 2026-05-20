@@ -1,7 +1,6 @@
 using Common.CommonBehaviors;
-using Common.CommonRepository;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using MyColabApiProject.Data;
 using MyColabApiProject.Repository;
 namespace MyColabApiProject
 {

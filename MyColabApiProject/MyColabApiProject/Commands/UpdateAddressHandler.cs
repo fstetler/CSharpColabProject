@@ -1,5 +1,6 @@
 ﻿using Common.CommonCommands;
 using Common.Result;
+using MyColabApiProject.Data;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Mappers;
 using MyColabApiProject.Repository;

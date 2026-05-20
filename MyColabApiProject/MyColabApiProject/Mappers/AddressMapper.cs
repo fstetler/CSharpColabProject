@@ -1,5 +1,6 @@
 using Riok.Mapperly.Abstractions;
 using MyColabApiProject.Domains;
+using MyColabApiProject.Data;
 
 namespace MyColabApiProject.Mappers
 {

@@ -3,6 +3,7 @@ using Common.Result;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Repository;
 using MyColabApiProject.Mappers;
+using MyColabApiProject.Data;
 
 namespace MyColabApiProject.Queries
 {

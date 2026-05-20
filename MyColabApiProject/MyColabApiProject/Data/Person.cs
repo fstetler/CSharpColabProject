@@ -1,4 +1,4 @@
-﻿namespace MyColabApiProject
+﻿namespace MyColabApiProject.Data
 {
     public class Person
     {

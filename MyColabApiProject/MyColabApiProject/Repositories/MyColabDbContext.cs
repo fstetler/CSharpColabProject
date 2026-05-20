@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyColabApiProject.Data;
 
 namespace MyColabApiProject.Repository
 {
