@@ -1,5 +1,6 @@
 ﻿using Common.CommonCommands;
 using Common.Result;
+using MyColabApiProject.Data;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Mappers;
 using MyColabApiProject.Repository;
@@ -18,11 +19,6 @@ namespace MyColabApiProject.Commands
 
         public override async Task<Result<PersonDto>> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrWhiteSpace(request.Name))
-            {
-                return BadRequest("Name cannot be empty or whitespace.");
-            }
-
             Person? person = await _repository.GetByIdAsync(request.Id);
 
             if (person is null)

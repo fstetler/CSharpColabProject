@@ -1,5 +1,6 @@
-using Common.CommonRepository;
+using Common.CommonBehaviors;
 using Microsoft.EntityFrameworkCore;
+using MyColabApiProject.Data;
 using MyColabApiProject.Repository;
 namespace MyColabApiProject
 {
@@ -10,19 +11,20 @@ namespace MyColabApiProject
 
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<PersonDbContext>(
+            builder.Services.AddDbContext<MyColabDbContext>(
                 options =>
                     options.UseInMemoryDatabase("PeopleDb"));
 
             builder.Services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssemblyContaining<Program>();
+                cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
 
             builder.Services.AddOpenApi();
             builder.Services.AddControllers();
-            builder.Services.AddTransient<IRepository<Person>, PersonRepository>();
             builder.Services.AddTransient<IPersonRepository, PersonRepository>();
+            builder.Services.AddTransient<IAddressRepository, AddressRepository>();
 
             WebApplication app = builder.Build();
 
@@ -38,11 +40,13 @@ namespace MyColabApiProject
 
             using (IServiceScope scope = app.Services.CreateScope())
             {
-                PersonDbContext personDbContext = scope.ServiceProvider.GetRequiredService<PersonDbContext>();
+                MyColabDbContext myColabDbContext = scope.ServiceProvider.GetRequiredService<MyColabDbContext>();
 
-                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe" });
-                await personDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler" });
-                await personDbContext.SaveChangesAsync();
+                await myColabDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe"});
+                await myColabDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler"});
+
+                await myColabDbContext.AddAsync(new Address { Id = Guid.NewGuid(), StreetName = "Magasinsgatan", StreetNumber = "9A", PostalCode = "75342", City = "Uppsala" });
+                await myColabDbContext.SaveChangesAsync();
             }
 
             app.MapControllers();

@@ -1,5 +1,6 @@
 ﻿using Common.CommonCommands;
 using Common.Result;
+using MyColabApiProject.Data;
 using MyColabApiProject.Domains;
 using MyColabApiProject.Mappers;
 using MyColabApiProject.Repository;
@@ -9,7 +10,6 @@ namespace MyColabApiProject.Commands
     public class CreatePersonHandler : CommandHandlerBase<CreatePersonCommand, PersonDto>
     {
         private readonly IPersonRepository _repository;
-        public static int value = 1;
 
         public CreatePersonHandler(IPersonRepository repository)
         {
@@ -18,12 +18,6 @@ namespace MyColabApiProject.Commands
 
         public override async Task<Result<PersonDto>> Handle(CreatePersonCommand request, CancellationToken cancellationToken)
         {
-
-            if (string.IsNullOrWhiteSpace(request.Name))
-            {
-                return BadRequest("Name cannot be empty or whitespace.");
-            }
-
             Person person = new Person
             { 
                 Id = Guid.NewGuid(),

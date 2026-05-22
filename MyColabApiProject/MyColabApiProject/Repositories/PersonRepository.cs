@@ -1,10 +1,11 @@
 ﻿using Common.CommonRepository;
+using MyColabApiProject.Data;
 
 namespace MyColabApiProject.Repository
 {
     public class PersonRepository : RepositoryBase<Person>, IPersonRepository
     {
-        public PersonRepository(PersonDbContext personDbContext) : base(personDbContext)
+        public PersonRepository(MyColabDbContext myColabDbContext) : base(myColabDbContext)
         {
         }
     }
