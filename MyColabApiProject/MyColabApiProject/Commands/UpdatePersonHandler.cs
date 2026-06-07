@@ -27,6 +27,7 @@ namespace MyColabApiProject.Commands
             }
 
             person.Name = request.Name;
+            person.Address = request.Address;
             _repository.Update(person);
             await _repository.SaveChangesAsync();
             return Ok(PersonMapper.Map(person));

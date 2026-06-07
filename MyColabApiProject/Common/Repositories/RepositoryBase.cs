@@ -27,7 +27,7 @@ namespace Common.CommonRepository
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<TEntity?> GetByIdAsync(Guid id)
+        public virtual async Task<TEntity?> GetByIdAsync(Guid id)
         {
             return await _db.Set<TEntity>().FindAsync(id);
         }
