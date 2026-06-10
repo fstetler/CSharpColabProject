@@ -42,8 +42,11 @@ namespace MyColabApiProject
             {
                 MyColabDbContext myColabDbContext = scope.ServiceProvider.GetRequiredService<MyColabDbContext>();
 
-                await myColabDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe"});
-                await myColabDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler"});
+                Address addressOne = new Address { Id = Guid.NewGuid(), StreetName = "Vasagatan", StreetNumber = "12B", PostalCode = "75320", City = "Uppsala" };
+                Address addressTwo = new Address { Id = Guid.NewGuid(), StreetName = "Hejgatan", StreetNumber = "5A", PostalCode = "75342", City = "Uppsala" };
+
+                await myColabDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Jane Doe", Address = addressOne});
+                await myColabDbContext.AddAsync(new Person { Id = Guid.NewGuid(), Name = "Fredrik Stetler", Address = addressTwo});
 
                 await myColabDbContext.AddAsync(new Address { Id = Guid.NewGuid(), StreetName = "Magasinsgatan", StreetNumber = "9A", PostalCode = "75342", City = "Uppsala" });
                 await myColabDbContext.SaveChangesAsync();
