@@ -17,5 +17,10 @@ namespace MyColabApiProject.Repository
         {
             return await _dbContext.Persons.Include(p => p.Address).FirstOrDefaultAsync(p => p.Id == id);
         }
-    }
+
+        public override async Task<List<Person>> GetAllAsync()
+        {
+            return await _dbContext.Persons.Include(p => p.Address).ToListAsync();
+        }
+}
 }
